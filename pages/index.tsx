@@ -31,7 +31,7 @@ interface Weather {
   location: WeatherLocationModel;
 }
 const Home: NextPage<WeatherRes> = ({ weatherRes }) => {
-  const [weather, setWeather] = useState<any>({});
+  const [weather, setWeather] = useState<Weather | null>(null);
   const [fetched, setFetched] = useState<boolean>(false);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const Home: NextPage<WeatherRes> = ({ weatherRes }) => {
     else {
       const weatherCurrent = new WeatherCurrent(weatherRes.current);
       const weatherLocation = new WeatherLocation(weatherRes.location);
-      const weather = {
+      const weather: Weather = {
         current: weatherCurrent,
         location: weatherLocation,
       }
@@ -59,7 +59,7 @@ const Home: NextPage<WeatherRes> = ({ weatherRes }) => {
         <title>Weather App</title>
       </Head>
       <div>
-        {fetched && <WeatherCard weather={weather} weatherCurrentModelText={WeatherCurrentModelText} />}
+        {fetched && weather && <WeatherCard weather={weather} weatherCurrentModelText={WeatherCurrentModelText} />}
       </div>
     </div>
   )
