@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import lofiImg from '../../public/maxresdefault.jpg';
-import { WeatherCurrentModel, WeatherLocationModel } from '../lib/models';
+import { WeatherCurrentModel, WeatherLocationModel } from '../../lib/models';
 
 interface WeatherCardProps {
   weather: {
