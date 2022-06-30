@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import WeatherCard from './components/WeatherCard'
+import WeatherCard from '../components/WeatherCard'
 import { WeatherCurrent, WeatherLocation, WeatherCurrentModel, WeatherLocationModel } from '../lib/models'
 import { WeatherCurrentModelText } from '../lib/modelTexts'
 
