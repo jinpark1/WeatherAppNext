@@ -1,4 +1,5 @@
 ## Weather App
+
 ### Hosted on https://weather-app-next-jinpark1.vercel.app/
 
 ## To Start the App in dev environment please follow the steps below.
