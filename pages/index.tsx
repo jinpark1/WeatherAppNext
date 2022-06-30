@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import WeatherCard from './components/WeatherCard'
@@ -33,7 +33,7 @@ interface Weather {
 const Home: NextPage<WeatherRes> = ({ weatherRes }) => {
   const [weather, setWeather] = useState<any>({});
   const [fetched, setFetched] = useState<boolean>(false);
-  
+
   useEffect(() => {
     if (weatherRes.error) {
       setFetched(false);
