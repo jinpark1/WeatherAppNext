@@ -6,7 +6,7 @@ import LocationSearch from '../components/LocationSearch'
 import WeatherCard from '../components/WeatherCard'
 import { WeatherCurrent, WeatherLocation, WeatherCurrentModel, WeatherLocationModel } from '../lib/models'
 import { WeatherCurrentModelText } from '../lib/modelTexts'
-import { getCookie, getCookies, setCookie, deleteCookie, hasCookie } from 'cookies-next';
+import { getCookie, setCookie, hasCookie } from 'cookies-next';
 
 type WeathersRes = {
   weatherRes: {
@@ -85,7 +85,7 @@ const Home: NextPage<WeathersRes> = ({ weatherRes }) => {
     setLocationSearchText(text)
   }
 
-  const locationSearchOnClickHandler = async () => {
+  const locationSearchOnClickHandler = async (): Promise<void> => {
     const options = {
       maxAge: 60 * 60 * 24 * 30, // 30 days.
     }

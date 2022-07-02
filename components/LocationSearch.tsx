@@ -2,7 +2,11 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-export default function LocationSearch(props: any) {
+interface LocationSearchProps {
+  onChange: (text: string) => void;
+  onClick: () => void;
+}
+export default function LocationSearch(props: LocationSearchProps) {
   return (
     <Box
       component="div"
