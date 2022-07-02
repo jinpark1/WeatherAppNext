@@ -65,11 +65,9 @@ const Home: NextPage<WeathersRes> = ({ weatherRes }) => {
         console.log(weatherRes.error.message);
       }
       else {
-        const weatherCurrent = new WeatherCurrent(weatherRes.current);
-        const weatherLocation = new WeatherLocation(weatherRes.location);
         const weather: Weather = {
-          current: weatherCurrent,
-          location: weatherLocation,
+          current: new WeatherCurrent(weatherRes.current),
+          location: new WeatherLocation(weatherRes.location),
         }
         return weather;
       }
@@ -95,11 +93,9 @@ const Home: NextPage<WeathersRes> = ({ weatherRes }) => {
     try {
       const res = await fetch(`/api/weather?name=${locationSearchText}`);
       const weatherRes = await res.json();
-      const weatherCurrent = new WeatherCurrent(weatherRes.current);
-      const weatherLocation = new WeatherLocation(weatherRes.location);
       const weather: Weather = {
-        current: weatherCurrent,
-        location: weatherLocation,
+        current: new WeatherCurrent(weatherRes.current),
+        location: new WeatherLocation(weatherRes.location),
       }
       setWeather((arr) => [...arr, weather]);
     } catch (err) {
