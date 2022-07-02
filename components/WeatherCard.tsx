@@ -17,11 +17,15 @@ interface WeatherCardProps {
 },
 }
 export default function WeatherCard(props: WeatherCardProps) {
-  const [current, setCurrent] = useState(props.weather.current);
-  const [location, setLocation] = useState(props.weather.location);
+  const current = props.weather.current
+  const location =props.weather.location;
   
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card
+      sx={{
+        maxWidth: 345,
+        marginBottom: '25px',
+      }}>
       <CardActionArea>
         <CardMedia
           component="img"
