@@ -16,7 +16,13 @@
 * Weather API from https://www.weatherapi.com/
 
 ## Features
-* Search and save cities.
+* Search and save locations.
+* Cookies used to store locations.
+
+## Todos
+* Add functionality to a button to remove locations.
+* Autocomplete for search and validator for valid location text string.
+* Error handling and loader for client side request.
 
 ## Built using...
-React, TypeScript, Material UI, WeatherAPI.
+React, TypeScript, Material UI, WeatherAPI, Cookies.
