@@ -16,7 +16,7 @@
 * Weather API from https://www.weatherapi.com/
 
 ## Features
-* SSR weather data.
+* Search and save cities.
 
 ## Built using...
 React, TypeScript, Material UI, WeatherAPI.
