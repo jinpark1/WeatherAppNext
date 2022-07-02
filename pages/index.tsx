@@ -18,11 +18,13 @@ type WeathersRes = {
   }[]
 }
 export async function getServerSideProps({ req, res }: any) {
-  let favoriteCities = ['LA', 'London'];  
-  
+  let favoriteCities = [];
   if (hasCookie('favoriteCities', { req, res })) {
     const favoriteCitiesCookie = getCookie('favoriteCities', { req, res }) as string;
     favoriteCities = JSON.parse(favoriteCitiesCookie);
+  } else {
+    favoriteCities = ['LA', 'London'];
+    setCookie('favoriteCities', favoriteCities, { req, res, maxAge: 60 * 60 * 24 * 30 });
   }
 
   const weather = 
@@ -48,7 +50,7 @@ const Home: NextPage<WeathersRes> = ({ weatherRes }) => {
   const [weather, setWeather] = useState<Weather[]>([]);
   const [fetched, setFetched] = useState<boolean>(false);
   const [locationSearchText, setLocationSearchText] = useState('');
-  const [favoriteCities, setFavoriteCities] = useState(["London", "LA"]);
+  const [favoriteCities, setFavoriteCities] = useState<string[]>([]);
 
   useEffect(() => {
     if (hasCookie('favoriteCities')) {
@@ -103,6 +105,21 @@ const Home: NextPage<WeathersRes> = ({ weatherRes }) => {
     }
   }
 
+  const weatherCardOnClickHandler = (index: number) => {
+    console.log("hit", index);
+    if (hasCookie('favoriteCities')) {
+      const options = {
+        maxAge: 60 * 60 * 24 * 30, // 30 days.
+      }
+      const cookie = getCookie('favoriteCities') as string;
+      const favoriteCities = JSON.parse(cookie).filter((city: string, i: number) => i !== index);
+      setCookie('favoriteCities', favoriteCities, options);
+    }
+
+    setWeather(arr => arr.filter((weather, i) => i !== index));
+    setFavoriteCities(arr => arr.filter((city, i) => i !== index))
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -113,7 +130,7 @@ const Home: NextPage<WeathersRes> = ({ weatherRes }) => {
         onChange={(text: string) => locationSearchOnChangeHandler(text)}
       />
       {fetched && weather && weather.map((w: any, index: number) => {
-        return <WeatherCard key={index} weather={w} weatherCurrentModelText={WeatherCurrentModelText} />
+        return <WeatherCard key={index} onClick={ () => weatherCardOnClickHandler(index) } weather={w} weatherCurrentModelText={ WeatherCurrentModelText } />
       })}
     </div>
   )

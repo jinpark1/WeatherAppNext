@@ -8,13 +8,14 @@ import lofiImg from '../public/maxresdefault.jpg';
 import { WeatherCurrentModel, WeatherLocationModel } from '../lib/models';
 
 interface WeatherCardProps {
+  onClick: () => void;
   weather: {
     current: WeatherCurrentModel;
     location: WeatherLocationModel;
-  },
+  };
   weatherCurrentModelText: {
     [key: string]: string,
-},
+  };
 }
 export default function WeatherCard(props: WeatherCardProps) {
   const current = props.weather.current
@@ -46,7 +47,7 @@ export default function WeatherCard(props: WeatherCardProps) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={ () => props.onClick() }>
           Remove
         </Button>
       </CardActions>
