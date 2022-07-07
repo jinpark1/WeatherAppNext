@@ -12,7 +12,7 @@ export default function handler(
   const locationName =  req.query.name as string;
   if (!locationName) {
     res.statusCode = 400;
-    res.end("Please provide location name");
+    res.end("Please provide location name.");
   } else {
     const fetchWeather = async () => {
       try {
@@ -25,6 +25,7 @@ export default function handler(
         res.end(error)
       }
     }
-    fetchWeather();
+    
+    return fetchWeather();
   }
 }

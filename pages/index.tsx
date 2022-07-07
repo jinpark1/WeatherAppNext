@@ -1,12 +1,12 @@
 import type { NextPage } from 'next'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import LocationSearch from '../components/LocationSearch'
 import WeatherCard from '../components/WeatherCard'
 import { WeatherCurrent, WeatherLocation, WeatherCurrentModel, WeatherLocationModel } from '../lib/models'
 import { WeatherCurrentModelText } from '../lib/modelTexts'
-import { getCookie, setCookie, hasCookie } from 'cookies-next';
+import { getCookie, setCookie, hasCookie } from 'cookies-next'
+import AutoComplete from '../components/AutoComplete'
 
 type WeathersRes = {
   weatherRes: {
@@ -81,32 +81,30 @@ const Home: NextPage<WeathersRes> = ({ weatherRes }) => {
 
   }, [weatherRes])
 
-  const locationSearchOnChangeHandler = (text: string) => {
-    setLocationSearchText(text)
-  }
-
-  const locationSearchOnClickHandler = async (): Promise<void> => {
-    const options = {
-      maxAge: 60 * 60 * 24 * 30, // 30 days.
-    }
-    setFavoriteCities((arr) => [...arr, locationSearchText]);
-    setCookie('favoriteCities', JSON.stringify(favoriteCities.concat(locationSearchText)), options);
-    
-    try {
-      const res = await fetch(`/api/weather?name=${locationSearchText}`);
-      const weatherRes = await res.json();
-      const weather: Weather = {
-        current: new WeatherCurrent(weatherRes.current),
-        location: new WeatherLocation(weatherRes.location),
+  const autoCompleteOnChangeHandler = async (e: React.SyntheticEvent, newValue: any): Promise<void> => {
+    if (newValue !== null) {
+      const city = newValue.name
+      const options = {
+        maxAge: 60 * 60 * 24 * 30, // 30 days.
       }
-      setWeather((arr) => [...arr, weather]);
-    } catch (err) {
-      console.log("ERROR", err);
+      setFavoriteCities((arr) => [...arr, city]);
+      setCookie('favoriteCities', JSON.stringify(favoriteCities.concat(city)), options);
+      
+      try {
+        const res = await fetch(`/api/weather?name=${city}`);
+        const weatherRes = await res.json();
+        const weather: Weather = {
+          current: new WeatherCurrent(weatherRes.current),
+          location: new WeatherLocation(weatherRes.location),
+        }
+        setWeather((arr) => [...arr, weather]);
+      } catch (err) {
+        console.log("ERROR", err);
+      }
     }
   }
 
   const weatherCardOnClickHandler = (index: number) => {
-    console.log("hit", index);
     if (hasCookie('favoriteCities')) {
       const options = {
         maxAge: 60 * 60 * 24 * 30, // 30 days.
@@ -125,10 +123,7 @@ const Home: NextPage<WeathersRes> = ({ weatherRes }) => {
       <Head>
         <title>Weather App</title>
       </Head>
-      <LocationSearch
-        onClick={ locationSearchOnClickHandler }
-        onChange={(text: string) => locationSearchOnChangeHandler(text)}
-      />
+      <AutoComplete onChange={ autoCompleteOnChangeHandler } />
       {fetched && weather && weather.map((w: any, index: number) => {
         return <WeatherCard key={index} onClick={ () => weatherCardOnClickHandler(index) } weather={w} weatherCurrentModelText={ WeatherCurrentModelText } />
       })}
