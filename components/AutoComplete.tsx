@@ -35,7 +35,7 @@ export default function AutoComplete(props: any) {
 
   const onInputChangeHandler = React.useCallback(
     (e: any, newValue: string) => {
-      if (newValue.length > 0)
+      if (newValue.length)
         getSearchResults(newValue);
     }, [])
 
