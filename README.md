@@ -21,7 +21,7 @@
 * Remove location cards with Remove button.
 
 ## Todos
-* Add functionality to a button to remove locations.
+* Add additional weather data such as forecast.
 
 ## Built using...
 React, TypeScript, Material UI, WeatherAPI, Cookies.
