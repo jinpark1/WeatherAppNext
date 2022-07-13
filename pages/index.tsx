@@ -124,7 +124,7 @@ const Home: NextPage<WeathersRes> = ({ weatherRes }) => {
         <title>Weather App</title>
       </Head>
       <AutoComplete onChange={ autoCompleteOnChangeHandler } />
-      {fetched && weather && weather.map((w: any, index: number) => {
+      {fetched && weather && weather.slice(0).reverse().map((w: any, index: number) => {
         return <WeatherCard key={index} onClick={ () => weatherCardOnClickHandler(index) } weather={w} weatherCurrentModelText={ WeatherCurrentModelText } />
       })}
     </div>
