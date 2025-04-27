@@ -1,6 +1,7 @@
 ## Weather App
 
 ### Hosted on https://weather-app-next-jinpark1.vercel.app/
+### Hosted on AWS EC2 http://3.101.16.210:3000/
 
 ## To Start the App in dev environment please follow the steps below.
 1. Open cmd (command prompt).
